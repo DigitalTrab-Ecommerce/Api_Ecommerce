@@ -22,8 +22,8 @@ model Products {
   Image         String
   category      String
   description   String
-  size          String
+  size          Int
   colors        String
-  isNew         Boolean
-  isSale        Boolean
+  isNew         Boolean @default(true)
+  isSale        Boolean @default(false)
 }
