@@ -27,3 +27,30 @@ model Products {
   isNew         Boolean @default(true)
   isSale        Boolean @default(false)
 }
+
+model Users {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  email    String  @unique
+  password String
+  isAdmin  Boolean @default(false)
+}
+
+model Orders {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String   @db.ObjectId
+  products   String[]
+  totalPrice Float
+  createdAt  DateTime @default(now())
+  status     String   @default("PENDING")
+}
+
+model EmailLog {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  to        String
+  subject   String
+  text      String
+  html      String?
+  status    String
+  createdAt DateTime @default(now())
+}
