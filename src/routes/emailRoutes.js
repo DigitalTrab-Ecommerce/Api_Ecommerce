@@ -1,6 +1,6 @@
 import express from "express";
 import { prisma } from "../prisma/client.js";
-import { sendEmail } from "../services/sendEmail.js";
+import { sendEmail } from "./services/sendEmail.js";
 
 const router = express.Router();
 
