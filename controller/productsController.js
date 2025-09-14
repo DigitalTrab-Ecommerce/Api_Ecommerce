@@ -2,7 +2,6 @@ require('dotenv').config();
 const { PrismaClient } = require('../generated/prisma');
 const { Ecommerce_confirmation_template } = require('../utils/constants');
 
-
 const prisma = new PrismaClient();
 
 class productsController {
@@ -24,37 +23,24 @@ class productsController {
                     isNew,
                     isSale
                 }
+            });
 
-            })
-            res.status(201).send('Produto criado com sucesso' + newProd);
-
-
+            res.status(201).send('Produto criado com sucesso ' + newProd);
 
         } catch (error) {
-            throw new Error(error)
+            throw new Error(error);
         }
     }
 
     async getProd(req, res) {
         const allProds = await prisma.products.findMany();
-
         res.status(200).json(allProds);
     }
 
     async updateProd(req, res) {
         const { id } = req.params;
 
-        const { name,
-            price,
-            originalPrice,
-            image,
-            category,
-            description,
-            size,
-            colors,
-            isNew,
-            isSale
-        } = req.body
+        const { name, price, originalPrice, image, category, description, size, colors, isNew, isSale } = req.body;
 
         try {
             const updateProd = await prisma.products.update({
@@ -72,16 +58,30 @@ class productsController {
                     colors,
                     isNew,
                     isSale
-
                 }
             });
 
-            res.status(200).json(updateProd)
+            res.status(200).json(updateProd);
         } catch (error) {
             throw new Error(error);
         }
+    }
 
+    async deleteProd(req, res) {
+        const { id } = req.params;
+
+        try {
+            const deletedProd = await prisma.products.delete({
+                where: {
+                    id: id
+                }
+            });
+
+            res.status(200).json({ message: "Produto deletado com sucesso", deletedProd });
+        } catch (error) {
+            res.status(404).json({ error: "Produto não encontrado ou já foi deletado" });
+        }
     }
 }
 
-module.exports = {productsController};
+module.exports = { productsController };
