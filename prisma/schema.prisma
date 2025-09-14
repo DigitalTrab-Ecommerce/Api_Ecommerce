@@ -19,10 +19,10 @@ model Products {
   name          String
   price         Float
   originalPrice Float
-  Image         String
+  image         String
   category      String
   description   String
-  size          Int
+  size          String
   colors        String
   isNew         Boolean @default(true)
   isSale        Boolean @default(false)
