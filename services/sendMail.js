@@ -1,5 +1,7 @@
 const nodemailer = require("nodemailer");
-const { prisma } = require("../prisma/client");
+const { PrismaClient } = require("../generated/prisma");
+
+const prisma = new PrismaClient();
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",

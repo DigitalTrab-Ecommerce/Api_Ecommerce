@@ -1,8 +1,9 @@
 const express = require("express");
-const { prisma } = require("../prisma/client");
-const sendEmail = require("../services/sendEmail");
+const { PrismaClient } = require("../generated/prisma");
+const sendEmail = require("../services/sendMail");
 
 const emailRouter = express.Router();
+const prisma = new PrismaClient();
 
 emailRouter.post("/send", async (req, res) => {
   const { to, subject, text, html } = req.body;
