@@ -7,6 +7,52 @@ const emailRouter = require("./email.routes");
 const userRouter = express.Router();
 const prisma = new PrismaClient();
 
+/**
+ * @openapi
+ * /users/register:
+ *   post:
+ *     summary: Registro de novo usuário
+ *     description: Cria um novo usuário, salva no banco de dados com senha criptografada e envia e-mail de boas-vindas.
+ *     tags:
+ *       - Users
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *               - email
+ *               - password
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: João da Silva
+ *               email:
+ *                 type: string
+ *                 example: joao@email.com
+ *               password:
+ *                 type: string
+ *                 example: minhaSenha123
+ *     responses:
+ *       200:
+ *         description: Usuário cadastrado com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Usuário cadastrado com sucesso!
+ *                 user:
+ *                   $ref: '#/components/schemas/User'
+ *       400:
+ *         description: Campos obrigatórios faltando ou e-mail já cadastrado
+ *       500:
+ *         description: Erro ao cadastrar usuário
+ */
 userRouter.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password) {
