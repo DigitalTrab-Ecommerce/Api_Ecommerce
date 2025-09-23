@@ -38,7 +38,7 @@ const options = {
     }
   },
   // Ajuste os caminhos conforme a estrutura do seu projeto
-  apis: ['./routes/*.js', './controllers/*.js']
+  apis: ['./routes/index.routes.js']
 };
 
 const swaggerSpec = swaggerJSDoc(options);
